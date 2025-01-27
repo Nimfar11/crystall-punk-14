@@ -30,6 +30,11 @@
   flavorType: Base
   description: cp14-flavor-base-magic
 
+- type: flavor
+  id: CP14VerySweet
+  flavorType: Base
+  description: cp14-flavor-base-very-sweetly
+
 # Complex
 
 - type: flavor

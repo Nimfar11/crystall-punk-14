@@ -18,8 +18,6 @@
   - type: NpcFactionMember
     factions:
     - CP14Monster
-  - type: NPCUseActionOnTarget
-    actionId: CP14ActionMoleSpellEyeOfStrength
   - type: Sprite
     drawdepth: Mobs
     layers:
@@ -45,7 +43,7 @@
     animation: WeaponArcBite
     damage:
       types:
-        Piercing: 3
+        Piercing: 5
         Structural: 3
   - type: Damageable
     damageContainer: Biological
@@ -55,15 +53,15 @@
   - type: MobThresholds
     thresholds:
       0: Alive
-      30: Dead
+      40: Dead
   - type: SlowOnDamage
     speedModifierThresholds:
-      25: 0.8
+      35: 0.8
   - type: Stamina
     critThreshold: 200
   - type: MovementSpeedModifier
-    baseWalkSpeed: 2
-    baseSprintSpeed: 2
+    baseWalkSpeed: 2.5
+    baseSprintSpeed: 2.5
   - type: DamageStateVisuals
     states:
       Alive:
@@ -92,7 +90,7 @@
     rechargeSound: null
     rechargeCooldown: 0.25
   - type: Gun
-    fireRate: 0.25
+    fireRate: 0.3
     useKey: false
     showExamineText: false
     selectedMode: FullAuto
@@ -102,97 +100,18 @@
       collection: Whistles
   - type: Stealth
     enabledOnDeath: false
-    maxVisibility: 1
+    maxVisibility: 1.2
   - type: StealthOnMove
     passiveVisibilityRate: -0.40
     movementVisibilityRate: 0.10
   - type: CP14MagicCasterSlowdown
   - type: CP14MagicEnergyContainer
     magicAlert: CP14MagicEnergy
-    maxEnergy: 150
-    energy: 150
+    maxEnergy: 50
+    energy: 50
   - type: CP14MagicEnergyDraw
     energy: 2
     delay: 4
   - type: Tag
     tags:
       - CP14Mosquito
-
-- type: entity
-  id: CP14ActionMoleSpellEyeOfStrength
-  name: Eye of strength
-  description: Make a subterranean leap, quickly approaching the victim.
-  components:
-  - type: CP14MagicEffectCastSlowdown
-    speedMultiplier: -1.0
-  - type: CP14MagicEffect
-    manaCost: 10
-    telegraphyEffects:
-    - !type:CP14SpellSpawnEntityOnTarget
-      spawns:
-      - CP14ImpactEffectEye
-    effects:
-    - !type:CP14SpellSpawnEntityOnTarget
-      spawns:
-      - CP14WallSpawnEyeOfStrength
-  - type: EntityWorldTargetAction
-    useDelay: 8
-    range: 10
-    checkCanAccess: false
-    itemIconStyle: BigAction
-    sound: !type:SoundPathSpecifier
-      path: /Audio/Magic/rumble.ogg
-    icon:
-      sprite: _CP14/Effects/Magic/spells_icons_monster.rsi
-      state: subterranean_leap
-    event: !type:CP14DelayedEntityWorldTargetActionEvent
-      cooldown: 4
-      hidden: true
-      breakOnMove: false
-    raiseOnUser: true
-
-- type: entity
-  id: CP14WallSpawnEyeOfStrength
-  parent:
-  - BaseMob  
-  - MobCombat
-  - FlyingMobBase
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: HTN
-    rootTask:
-      task: MeleeCombatCompound
-  - type: NpcFactionMember
-    factions:
-    - CP14Monster
-  - type: MovementSpeedModifier
-    baseWalkSpeed: 0
-    baseSprintSpeed: 0
-  - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/magic.rsi
-    layers:
-    - state: magicm
-      shader: unshaded
-  - type: MeleeWeapon
-    angle: 0
-    range: 3
-    attackRate: 0.6
-    damage:
-      types:
-        Blunt: 4
-  - type: StaminaDamageOnHit
-    damage: 15
-  - type: MeleeThrowOnHit
-    lifetime: 7
-    speed: 80
-  - type: TimedDespawn
-    lifetime: 1
-
-- type: entity
-  id: CP14ImpactEffectEye
-  parent: CP14BaseMagicImpact
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: Sprite
-    layers:
-    - state: particles_up
